@@ -4,16 +4,16 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const cardsContainer = document.querySelector('.cards');
-  axios.get('https://api.github.com/users/ByrdJayson')
-  .then(res => {
-    console.log(res);
-    const newCard = cardMaker(res);
-    cardsContainer.appendChild(newCard)
-  })
-  .catch(err => {
-    console.error(err);
-  })
+  const cardsContainer = document.querySelector('.cards');
+//   axios.get('https://api.github.com/users/ByrdJayson')
+//   .then(res => {
+//     console.log(res);
+//     const newCard = cardMaker(res);
+//     cardsContainer.appendChild(newCard)
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -38,7 +38,7 @@ const cardsContainer = document.querySelector('.cards');
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+const followersArray = ['byrdjayson','tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 
 
@@ -66,6 +66,7 @@ function cardMaker(obj){
   location.textContent = `Location: ${obj.data.location}`;
   profile.textContent = `Profile: `;
   profileLink.href = obj.data.html_url;
+  profileLink.textContent = obj.data.html_url;
   followers.textContent = `Followers: ${obj.data.followers}`;
   following.textContent = `Following: ${obj.data.following}`;
   bio.textContent = `Bio: ${obj.data.bio}`;
@@ -83,6 +84,17 @@ function cardMaker(obj){
 
   return card
 }
+
+  followersArray.forEach((item, i) => {
+    axios.get(`https://api.github.com/users/${item}`)
+      .then(res => {
+        const newCard = cardMaker(res);
+        cardsContainer.appendChild(newCard);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  });
 
 
 /*

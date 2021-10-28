@@ -4,9 +4,12 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cardsContainer = document.querySelector('.cards');
   axios.get('https://api.github.com/users/ByrdJayson')
   .then(res => {
     console.log(res);
+    const newCard = cardMaker(res);
+    cardsContainer.appendChild(newCard)
   })
   .catch(err => {
     console.error(err);
@@ -35,7 +38,7 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 
 

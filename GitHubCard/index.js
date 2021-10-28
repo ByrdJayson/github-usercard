@@ -55,7 +55,30 @@ function cardMaker(obj){
 
   card.classList.add('card');
   cardImg.src = obj.data.avatar_url;
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  name.textContent = obj.data.name;
+  username.classList.add('username');
+  username.textContent = obj.data.login;
+  location.textContent = `Location: ${obj.data.location}`;
+  profile.textContent = `Profile: `;
+  profileLink.href = obj.data.html_url;
+  followers.textContent = `Followers: ${obj.data.followers}`;
+  following.textContent = `Following: ${obj.data.following}`;
+  bio.textContent = `Bio: ${obj.data.bio}`;
 
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  return card
 }
 
 

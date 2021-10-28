@@ -1,9 +1,19 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+  const cardsContainer = document.querySelector('.cards');
+//   axios.get('https://api.github.com/users/ByrdJayson')
+//   .then(res => {
+//     console.log(res);
+//     const newCard = cardMaker(res);
+//     cardsContainer.appendChild(newCard)
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +38,64 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['byrdjayson','tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+
+
+function cardMaker(obj){
+
+  const card = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card');
+  cardImg.src = obj.data.avatar_url;
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  name.textContent = obj.data.name;
+  username.classList.add('username');
+  username.textContent = obj.data.login;
+  location.textContent = `Location: ${obj.data.location}`;
+  profile.textContent = `Profile: `;
+  profileLink.href = obj.data.html_url;
+  profileLink.textContent = obj.data.html_url;
+  followers.textContent = `Followers: ${obj.data.followers}`;
+  following.textContent = `Following: ${obj.data.following}`;
+  bio.textContent = `Bio: ${obj.data.bio}`;
+
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  return card
+}
+
+  followersArray.forEach((item, i) => {
+    axios.get(`https://api.github.com/users/${item}`)
+      .then(res => {
+        const newCard = cardMaker(res);
+        cardsContainer.appendChild(newCard);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  });
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
